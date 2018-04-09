@@ -5,9 +5,7 @@
 
 #include <memory>
 
-class Point;
-class Triangle;
-class Shape;
+class ConvexShape;
 
 class ShapeFactory
 {
@@ -19,16 +17,16 @@ public:
 	static ShapeFactory& instance();
 
 	void onClick(int button, int action, double mousex, double mousey);
-	const std::vector<std::unique_ptr<Shape>>& getShapeList() const;
-	const Triangle* getTriangle() const;
-	const Point* getPoint() const;
+	void onKey(int key, int scancode, int action, int mods);
+	const std::vector<ConvexShape>& getShapeList() const;
 
 private:
 	ShapeFactory();
 
 	static std::unique_ptr<ShapeFactory> s_instance;
 	
-	std::vector<std::unique_ptr<Shape>> m_shapeList;
-	std::vector<glm::vec2> m_vertices;
+	std::vector<ConvexShape> m_shapeList;
+	size_t m_curShapeIdx;
+	//std::vector<glm::vec2> m_vertices;
 };
 

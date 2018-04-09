@@ -1,7 +1,5 @@
-#include "Triangle.h"
-#include "Point.h"
+#include "ConvexShape.h"
 #include "ShapeFactory.h"
-#include "Shape.h"
 
 #include <glm\glm.hpp>
 #include <glad\glad.h>
@@ -23,6 +21,8 @@ void key(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
+	else
+		ShapeFactory::instance().onKey(key, scancode, action, mods);
 }
 
 void mouseBtnCallback(GLFWwindow* window, int button, int action, int mods) 
@@ -90,18 +90,13 @@ int main()
 
 		nvgBeginFrame(vg, winWidth, winHeight, pxRatio);
 
-		const std::vector<std::unique_ptr<Shape>>& shapeList = shapeFactory.getShapeList();
+		const auto& shapeList = shapeFactory.getShapeList();
 		for (auto& shape : shapeList) {
-			shape->draw(vg);
+			shape.draw(vg);
 		}
 
-		const Triangle* triangle = shapeFactory.getTriangle();
-		const Point* point = shapeFactory.getPoint();
-		if (triangle && point) {
-			if (point->inside(*triangle))
-				std::cout << "Point inside triangle" << std::endl;
-			else
-				std::cout << "Point outside triangle" << std::endl;
+		if (shapeList.size() == 2 && shapeList[0].intersects(shapeList[1])) {
+			std::cout << "Intersection Detected!" << std::endl;
 		}
 
 		nvgEndFrame(vg);

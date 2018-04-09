@@ -139,6 +139,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\ext\glad\src\glad.c" />
+    <ClCompile Include="ConvexShape.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="ShapeFactory.cpp" />
     <ClCompile Include="main.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConvexShape.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="ShapeFactory.h" />
     <ClInclude Include="Shape.h" />
